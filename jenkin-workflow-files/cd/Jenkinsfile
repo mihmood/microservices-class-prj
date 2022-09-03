@@ -6,22 +6,17 @@ pipeline {
   stages {
     stage('Build') {
 			steps {
-				#dir('hello-world-nodejs-docker'){
 				dir('microservices-class-prj'){
-					sh 'docker build --rm --name backend --network application --init -p 9090:8080 backend-python  .'
-					sh 'docker build --rm --name frontend -e BACKEND_URL=backend:8080 --network application --init -p 9091:8080 frontend-node  .'
+					sh 'docker compose build'
 				}
 			} 
 		}
     stage('Test') {
       steps {
-			#dir('hello-world-nodejs-docker'){
 			dir('microservices-class-prj'){
-				#sh 'docker container run --rm -p 8001:8080 --name node -d kahootali/test-node-app' 
 				sh 'docker compose up' 
 				sh 'sleep 5'
-				#sh 'curl -I http://localhost:8001'
-				sh 'curl -I http://http://ec2-18-206-174-55.compute-1.amazonaws.com:9091/student/3'
+				sh 'curl -I http://ec2-18-206-174-55.compute-1.amazonaws.com:9091/student/3'
 			}
 		} 
 	}
