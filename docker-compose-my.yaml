@@ -28,7 +28,11 @@ services:
     expose:
       # Opens port 3306 on the container
       - '3306'
-    volume: /home/ubuntu/dice_working/mysql_container_lab/mysql_vol:/var/lib/mysql
+    volume: 
+    - /home/ubuntu/dice_working/mysql_container_lab/mysql_vol:/var/lib/mysql
+    networks:
+    - application
+
   frontend:
     build: 
       context: frontend-node/
@@ -47,6 +51,6 @@ services:
 networks:
   application:
     name: application
-volumes:
-  /home/ubuntu/dice_working/mysql_container_lab/mysql_vol:
+#volumes:
+#  /home/ubuntu/dice_working/mysql_container_lab/mysql_vol:
 
