@@ -1,0 +1,52 @@
+version: '3.9'
+services:
+  backend:
+    build: 
+      context: backend-python/
+      dockerfile: Dockerfile
+    init: true
+    deploy:
+      replicas: 3
+    networks:
+    - application
+  mysql:
+    image: mysql:8.0.30
+#    db:
+#    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'dbtest'
+      # So you don't have to use root, but you can if you like
+      MYSQL_USER: 'mahmood01'
+      # You can use whatever password you like
+      MYSQL_PASSWORD: '12345'
+      # Password for root access
+      MYSQL_ROOT_PASSWORD: '12345'
+    ports:
+      # <Port exposed> : < MySQL Port running inside container>
+      - '3306:3306'
+    expose:
+      # Opens port 3306 on the container
+      - '3306'
+    volume: /home/ubuntu/dice_working/mysql_container_lab/mysql_vol:/var/lib/mysql
+  frontend:
+    build: 
+      context: frontend-node/
+      dockerfile: Dockerfile
+    init: true
+    environment:
+      BACKEND_URL: backend:8080
+    deploy:
+      replicas: 1
+    networks:
+    - application
+    ports:
+    - "9091:8080"
+    depends_on:
+    - backend
+networks:
+  application:
+    name: application
+volumes:
+  /home/ubuntu/dice_working/mysql_container_lab/mysql_vol:
+
