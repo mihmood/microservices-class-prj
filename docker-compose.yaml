@@ -3,6 +3,7 @@ services:
   backend:
     build: 
       context: backend-python/
+      #context: mihmood/microservices-class-prj/backend-python/
       dockerfile: Dockerfile
     init: true
     deploy:
@@ -36,6 +37,7 @@ services:
   frontend:
     build: 
       context: frontend-node/
+      #context: mihmood/microservices-class-prj/frontend-node/
       dockerfile: Dockerfile
     init: true
     environment:

@@ -24,7 +24,7 @@ pipeline {
 			steps{
 				script {
 					docker.withRegistry( '', registryCredential ) {
-						sh 'docker push mihmood/test-node-app:latest'
+						sh 'docker compose push mihmood/microservices-class-prj:latest'
 					} 
 				}
 			} 
