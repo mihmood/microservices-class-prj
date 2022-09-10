@@ -55,4 +55,4 @@ networks:
     name: application
 #volumes:
 #  - /home/ubuntu/dice_working/mysql_container_lab/mysql_vol:/var/lib/mysql
-
+#
