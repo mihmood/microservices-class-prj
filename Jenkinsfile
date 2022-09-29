@@ -10,10 +10,9 @@ pipeline {
 					sh 'docker compose down'
 					sh 'sleep 5'
 					sh 'docker compose build'
-			#	}
+	
 
-
-				dir('frontend-dice-class-prj') #{
+				dir('frontend-dice-class-prj') 
                                         sh 'docker compose down'
                                         sh 'sleep 5'
                                         sh 'docker compose build'
