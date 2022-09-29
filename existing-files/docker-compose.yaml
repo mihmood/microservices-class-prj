@@ -1,24 +1,20 @@
 version: '3.9'
 services:
-  backend-python:
-    image: mihmood/backend-python:latest
+  backend:
     build: 
-      #context: backend-python/
-      context: backend-dice-class-prj/
+      context: backend-python/
       #context: mihmood/microservices-class-prj/backend-python/
       dockerfile: Dockerfile
     init: true
     deploy:
-      replicas: 1
+      replicas: 3
     networks:
     - application
-    ports:
-    - '9090:8080'
-    expose:
-      - '9090'
-  db:
+  mysql:
     image: mysql:8.0.30
-    restart: always
+#    db:
+#    image: mysql:5.7
+    #restart: always
     environment:
       MYSQL_DATABASE: 'dbtest'
       # So you don't have to use root, but you can if you like
@@ -38,14 +34,14 @@ services:
     networks:
     - application
 
-  frontend-app:
-    #image: mihmood/frontend-python:latest
+  frontend:
     build: 
-      context: frontend-dice-class-prj/
+      context: frontend-node/
+      #context: mihmood/microservices-class-prj/frontend-node/
       dockerfile: Dockerfile
     init: true
     environment:
-      BACKEND_URL: backend-python:8080
+      BACKEND_URL: backend:8080
     deploy:
       replicas: 1
     networks:
@@ -53,9 +49,7 @@ services:
     ports:
     - "9091:8080"
     depends_on:
-    - backend-python
-    expose:
-      - '9091'
+    - backend
 networks:
   application:
     name: application
