@@ -7,12 +7,14 @@ pipeline {
     stage('Build') {
 			steps {
 				dir('backend-dice-class-prj'){
+					sh 'echo "Inside dir:backend-dice-class-prj. Build Step"'
 					sh 'docker compose down'
 					sh 'sleep 5'
 					sh 'docker compose build'
 	
 
 				dir('frontend-dice-class-prj') 
+                                        sh 'echo "Inside dir:frontend-dice-class-prj. Build Step"'
                                         sh 'docker compose down'
                                         sh 'sleep 5'
                                         sh 'docker compose build'
