@@ -6,11 +6,18 @@ pipeline {
   stages {
     stage('Build') {
 			steps {
-				dir(''){
+				dir('backend-dice-class-prj'){
 					sh 'docker compose down'
 					sh 'sleep 5'
 					sh 'docker compose build'
 				}
+
+
+				dir('frontend-dice-class-prj'){
+                                        sh 'docker compose down'
+                                        sh 'sleep 5'
+                                        sh 'docker compose build'
+                                }
 			} 
 		}
     stage('Test') {
